@@ -1,0 +1,10 @@
+{
+  "name": "animation-manager-skill",
+  "version": "1.0.0",
+  "description": "Professional multi-scene AI animation production manager for OpenClaw.",
+  "author": "SalmonRK",
+  "repository": "https://github.com/SalmonRK/animation-manager-skill",
+  "keywords": ["animation", "production-management", "ai-art", "automation"],
+  "license": "MIT",
+  "skill_file": "SKILL.md"
+}
