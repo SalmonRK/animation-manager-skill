@@ -1,7 +1,7 @@
 {
   "name": "animation-manager-skill",
   "version": "1.0.0",
-  "description": "Professional multi-scene AI animation production manager for OpenClaw.",
+  "description": "Professional multi-scene AI animation production manager for OpenClaw. It coordinates visuals (ComfyUI), voice (TTS), and editing (FFmpeg) via a centralized JSON database with character consistency support.",
   "author": "SalmonRK",
   "repository": "https://github.com/SalmonRK/animation-manager-skill",
   "keywords": ["animation", "production-management", "ai-art", "automation"],
