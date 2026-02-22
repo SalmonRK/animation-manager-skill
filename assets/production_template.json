@@ -1,0 +1,26 @@
+{
+  "project_info": {
+    "title": "Project_Name_Mockup",
+    "total_scenes": 4,
+    "status": "draft"
+  },
+  "character_info": {
+    "name": "Ava",
+    "description": "Character description mockup",
+    "consistency_prompt": "Standard visual consistency prompt"
+  },
+  "scenes": [
+    {
+      "scene_id": 1,
+      "image_prompt": "Describe scene 1 visual",
+      "animation_prompt": "Describe movement for ltx2",
+      "voice_script": "What the character says",
+      "paths": {
+        "source_image": "",
+        "video_clip": "",
+        "voice_audio": ""
+      },
+      "status": "pending"
+    }
+  ]
+}
