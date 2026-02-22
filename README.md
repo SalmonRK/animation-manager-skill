@@ -10,7 +10,7 @@ A professional, token-saving agent skill for managing multi-scene AI animation p
 - **Asset Templates:** Includes `assets/production_template.json` for rapid project setup.
 
 ## 🏗️ Studio Structure
-- **Production Root:** `/Users/salmonrk/Ai-Art/AvaClaw/Animations/`
+- **Production Root:** `[YOUR_PRODUCTION_DIR]/Animations/`
 - **Project Folder:**
     - `storyboard.md`: Human-readable script and descriptions.
     - `production.json`: Machine-readable database.

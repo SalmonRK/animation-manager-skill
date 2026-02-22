@@ -3,7 +3,7 @@
 A professional skill for managing multi-scene AI animation productions. It coordinates between ComfyUI (visuals), TTS (voice), and FFmpeg (editing) using a centralized JSON database.
 
 ## 🏗️ Studio Structure
-- **Production Root:** `/Users/salmonrk/Ai-Art/AvaClaw/Animations/`
+- **Production Root:** `[YOUR_PRODUCTION_DIR]/Animations/` (Configure in `TOOLS.md` or environment)
 - **Project Structure:**
     - `storyboard.md`: Human-readable script and scene descriptions.
     - `production.json`: Machine-readable database for character info, prompts, paths, and status.
@@ -11,7 +11,7 @@ A professional skill for managing multi-scene AI animation productions. It coord
     - `final/`: Merged master movie.
 
 ## 👥 Character Consistency
-Each `production.json` includes a `character_info` block. Sub-agents MUST use the `consistency_prompt` provided in this block as the base for all image generation to ensure Ava looks the same in every scene.
+Each `production.json` includes a `character_info` block. Sub-agents MUST use the `consistency_prompt` provided in this block as the base for all image generation to ensure character appearance remains stable across scenes.
 
 ## 🚀 Production Workflow & Token Efficiency
 To ensure high quality and token efficiency, follow this 3-step process for every scene:
