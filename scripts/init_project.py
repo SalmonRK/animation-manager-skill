@@ -1,11 +1,29 @@
 import json
 import os
 import sys
+import re
+
+# --- DYNAMIC CONFIG ---
+# Default fallback path
+ANIM_ROOT = "/tmp/animations"
+
+# Try to resolve relative to workspace first
+SKILL_ROOT = os.path.dirname(os.path.abspath(__file__))
+WORKSPACE_ROOT = os.path.abspath(os.path.join(SKILL_ROOT, "..", "..", ".."))
+TOOLS_PATH = os.path.join(WORKSPACE_ROOT, "TOOLS.md")
+
+# Attempt to read from TOOLS.md to avoid hardcoding (Security Compliance)
+if os.path.exists(TOOLS_PATH):
+    with open(TOOLS_PATH, 'r') as f:
+        content = f.read()
+        match = re.search(r'Production Root:\s*(.+)', content)
+        if match:
+            ANIM_ROOT = match.group(1).strip()
 
 def init_project(project_name, total_scenes):
-    root_path = f"/Users/salmonrk/Ai-Art/AvaClaw/Animations/{project_name}"
-    os.makedirs(f"{root_path}/outputs", exist_ok=True)
-    os.makedirs(f"{root_path}/final", exist_ok=True)
+    root_path = os.path.join(ANIM_ROOT, project_name)
+    os.makedirs(os.path.join(root_path, "outputs"), exist_ok=True)
+    os.makedirs(os.path.join(root_path, "final"), exist_ok=True)
     
     data = {
         "project_info": {
@@ -28,17 +46,17 @@ def init_project(project_name, total_scenes):
             "animation_prompt": "",
             "voice_script": "",
             "paths": {
-                "source_image": f"{root_path}/outputs/s{i:02d}_image.png",
-                "video_clip": f"{root_path}/outputs/s{i:02d}_video.mp4",
-                "voice_audio": f"{root_path}/outputs/s{i:02d}_voice.mp3"
+                "source_image": os.path.join(root_path, "outputs", f"s{i:02d}_image.png"),
+                "video_clip": os.path.join(root_path, "outputs", f"s{i:02d}_video.mp4"),
+                "voice_audio": os.path.join(root_path, "outputs", f"s{i:02d}_voice.mp3")
             },
             "status": "pending"
         })
     
-    with open(f"{root_path}/production.json", "w") as f:
+    with open(os.path.join(root_path, "production.json"), "w") as f:
         json.dump(data, f, indent=2)
     
-    with open(f"{root_path}/storyboard.md", "w") as f:
+    with open(os.path.join(root_path, "storyboard.md"), "w") as f:
         f.write(f"# Storyboard: {project_name}\n\nTotal Scenes: {total_scenes}\n\n## Concept\n(Enter concept here)\n")
     
     print(f"Project '{project_name}' initialized at {root_path}")

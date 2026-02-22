@@ -1,14 +1,28 @@
 import json
 import os
 import sys
+import re
+
+# --- DYNAMIC CONFIG ---
+ANIM_ROOT = "/tmp/animations"
+SKILL_ROOT = os.path.dirname(os.path.abspath(__file__))
+WORKSPACE_ROOT = os.path.abspath(os.path.join(SKILL_ROOT, "..", "..", ".."))
+TOOLS_PATH = os.path.join(WORKSPACE_ROOT, "TOOLS.md")
+
+if os.path.exists(TOOLS_PATH):
+    with open(TOOLS_PATH, 'r') as f:
+        content = f.read()
+        match = re.search(r'Production Root:\s*(.+)', content)
+        if match:
+            ANIM_ROOT = match.group(1).strip()
 
 def export_ffmpeg(project_name):
-    root_path = f"/Users/salmonrk/Ai-Art/AvaClaw/Animations/{project_name}"
-    json_path = f"{root_path}/production.json"
-    list_path = f"{root_path}/outputs/filelist.txt"
+    root_path = os.path.join(ANIM_ROOT, project_name)
+    json_path = os.path.join(root_path, "production.json")
+    list_path = os.path.join(root_path, "outputs", "filelist.txt")
     
     if not os.path.exists(json_path):
-        print(f"Error: Project '{project_name}' not found.")
+        print(f"Error: Project '{project_name}' not found at {json_path}")
         return
 
     with open(json_path, "r") as f:
