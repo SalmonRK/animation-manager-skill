@@ -3,12 +3,15 @@
 A professional skill for managing multi-scene AI animation productions. It coordinates between ComfyUI (visuals), TTS (voice), and FFmpeg (editing) using a centralized JSON database.
 
 ## 🏗️ Studio Structure
-- **Production Root:** `[YOUR_PRODUCTION_DIR]/Animations/` (Configure in `TOOLS.md` or environment)
-- **Project Structure:**
-    - `storyboard.md`: Human-readable script and scene descriptions.
-    - `production.json`: Machine-readable database for character info, prompts, paths, and status.
-    - `outputs/`: Raw assets (PNG, MP4, MP3).
-    - `final/`: Merged master movie.
+- **Production Root:** Configured via `.env` (Private)
+- **Asset Storage:**
+    - ComfyUI Assets: `/Users/salmonrk/.openclaw/media/comfy/`
+    - General Media: `/Users/salmonrk/.openclaw/media/`
+- **Project Folder Layout:**
+    - `storyboard.md`: Human-readable script.
+    - `production.json`: Central database (prompts, paths, status).
+    - `outputs/`: Raw assets or symlinks (PNG, MP4, MP3).
+    - `final/`: Merged master movies.
 
 ## 👥 Character Consistency
 Each `production.json` includes a `character_info` block. Sub-agents MUST use the `consistency_prompt` provided in this block as the base for all image generation to ensure character appearance remains stable across scenes.

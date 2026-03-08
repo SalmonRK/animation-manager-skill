@@ -3,24 +3,22 @@ import os
 import sys
 import re
 
+# Load environment variables from .env file
+def load_env():
+    env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env")
+    if os.path.exists(env_path):
+        with open(env_path, 'r') as f:
+            for line in f:
+                if '=' in line:
+                    key, value = line.strip().split('=', 1)
+                    os.environ[key] = value
+
+load_env()
+
 # --- DYNAMIC CONFIG ---
-# Default fallback path
-ANIM_ROOT = "/tmp/animations"
+ANIM_ROOT = os.environ.get("ANIM_ROOT", "/tmp/animations")
 
-# Try to resolve relative to workspace first
-SKILL_ROOT = os.path.dirname(os.path.abspath(__file__))
-WORKSPACE_ROOT = os.path.abspath(os.path.join(SKILL_ROOT, "..", "..", ".."))
-TOOLS_PATH = os.path.join(WORKSPACE_ROOT, "TOOLS.md")
-
-# Attempt to read from TOOLS.md to avoid hardcoding (Security Compliance)
-if os.path.exists(TOOLS_PATH):
-    with open(TOOLS_PATH, 'r') as f:
-        content = f.read()
-        match = re.search(r'Production Root:\s*(.+)', content)
-        if match:
-            ANIM_ROOT = match.group(1).strip()
-
-def init_project(project_name, total_scenes):
+def init_project(project_name, total_scenes, char_name="MariClaw (มาริคลอ)"):
     root_path = os.path.join(ANIM_ROOT, project_name)
     os.makedirs(os.path.join(root_path, "outputs"), exist_ok=True)
     os.makedirs(os.path.join(root_path, "final"), exist_ok=True)
@@ -32,9 +30,9 @@ def init_project(project_name, total_scenes):
             "status": "planning"
         },
         "character_info": {
-            "name": "Ava (เอวา)",
-            "description": "Half-Thai Half-Japanese, 22 years old, short black hair with pink highlights, thin gold round-rimmed glasses, pale Asian skin.",
-            "consistency_prompt": "A beautiful 22-year-old Half-Thai Half-Japanese girl, short black hair with vibrant pink highlights, wearing thin gold round-rimmed glasses, pale Asian skin"
+            "name": char_name,
+            "description": "Describe appearance, age, and clothing style here.",
+            "consistency_prompt": "Provide a detailed visual prompt for character consistency here."
         },
         "scenes": []
     }
@@ -63,6 +61,9 @@ def init_project(project_name, total_scenes):
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: python3 init_project.py <name> <scenes>")
+        print("Usage: python3 init_project.py <name> <scenes> [char_name]")
     else:
-        init_project(sys.argv[1], int(sys.argv[2]))
+        name = sys.argv[1]
+        scenes = int(sys.argv[2])
+        char = sys.argv[3] if len(sys.argv) > 3 else "MariClaw (มาริคลอ)"
+        init_project(name, scenes, char)

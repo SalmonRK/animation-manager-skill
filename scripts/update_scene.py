@@ -4,18 +4,20 @@ import sys
 import argparse
 import re
 
-# --- DYNAMIC CONFIG ---
-ANIM_ROOT = "/tmp/animations"
-SKILL_ROOT = os.path.dirname(os.path.abspath(__file__))
-WORKSPACE_ROOT = os.path.abspath(os.path.join(SKILL_ROOT, "..", "..", ".."))
-TOOLS_PATH = os.path.join(WORKSPACE_ROOT, "TOOLS.md")
+# Load environment variables from .env file
+def load_env():
+    env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env")
+    if os.path.exists(env_path):
+        with open(env_path, 'r') as f:
+            for line in f:
+                if '=' in line:
+                    key, value = line.strip().split('=', 1)
+                    os.environ[key] = value
 
-if os.path.exists(TOOLS_PATH):
-    with open(TOOLS_PATH, 'r') as f:
-        content = f.read()
-        match = re.search(r'Production Root:\s*(.+)', content)
-        if match:
-            ANIM_ROOT = match.group(1).strip()
+load_env()
+
+# --- DYNAMIC CONFIG ---
+ANIM_ROOT = os.environ.get("ANIM_ROOT", "/tmp/animations")
 
 def update_scene(project_name, scene_id, key, value):
     root_path = os.path.join(ANIM_ROOT, project_name)

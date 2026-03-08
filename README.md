@@ -10,26 +10,33 @@ A professional, token-saving agent skill for managing multi-scene AI animation p
 - **Asset Templates:** Includes `assets/production_template.json` for rapid project setup.
 
 ## 🏗️ Studio Structure
-- **Production Root:** `[YOUR_PRODUCTION_DIR]/Animations/`
-- **Project Folder:**
-    - `storyboard.md`: Human-readable script and descriptions.
-    - `production.json`: Machine-readable database.
+- **Production Root:** Configured via `.env` file (See `SKILL.md` for setup).
+- **Global Skill Path:** `~/.openclaw/skills/animation-manager/` (Centralized for all agents).
+- **Project Folder Layout:**
+    - `storyboard.md`: Creative vision and scene-by-scene script.
+    - `production.json`: Central database for prompts, file paths, and production status.
     - `outputs/`: Raw assets (PNG, MP4, MP3).
-    - `final/`: Merged master movie.
+    - `final/`: Merged master movies.
 
 ## 🛠️ Tools (CLI)
+Invoke via the `exec` command using the global skill path:
+
 ### 1. Initialize Project
 ```bash
-python3 skills/animation-manager/scripts/init_project.py "<project_name>" <total_scenes>
+python3 ~/.openclaw/skills/animation-manager/scripts/init_project.py "<project_name>" <total_scenes>
 ```
+
 ### 2. Update Scene Data
 ```bash
-python3 skills/animation-manager/scripts/update_scene.py "<project_name>" <scene_id> --key <key> --value <value>
+python3 ~/.openclaw/skills/animation-manager/scripts/update_scene.py "<project_name>" <scene_id> --key <key> --value <value>
 ```
-### 3. Export for FFmpeg
-```bash
-python3 skills/animation-manager/scripts/export_ffmpeg.py "<project_name>"
-```
+
+### 3. Export & Render
+- **Export List:** `python3 ~/.openclaw/skills/animation-manager/scripts/export_ffmpeg.py "<project_name>"`
+- **Master Render:** `python3 ~/.openclaw/skills/animation-manager/scripts/render_final.py "<project_name>"` (Combines all completed scenes).
+
+## 🛡️ Security & Privacy
+- **Private Config:** All sensitive paths and IPs are stored in a local `.env` file, which is excluded from version control via `.gitignore`.
 
 ---
 Developed by **SalmonRK** & **Ava (เอวา)** 🎀

@@ -1,0 +1,8 @@
+.env
+outputs/
+final/
+storyboard.md
+production.json
+*.mp4
+*.png
+*.mp3
